@@ -2,6 +2,12 @@
 
 An interactive, step-by-step cake designer where users can create their dream cake and see it visualized in real-time.
 
+## 🌐 Live Demo
+
+Once GitHub Pages is enabled, visit: **https://zliu31.github.io/Cake/**
+
+> **Not live yet?** See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for setup instructions.
+
 ## Features
 
 ### Interactive Step-by-Step Flow
