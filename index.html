@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Cake! 🎂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff6b9d;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            color: #ff6b9d;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .option-btn.matcha {
+            background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+        }
+
+        .option-btn.vanilla {
+            background: linear-gradient(135deg, #f8e8b4 0%, #e6d185 100%);
+            color: #333;
+        }
+
+        .option-btn.chocolate {
+            background: linear-gradient(135deg, #8b5e3c 0%, #5c3d2e 100%);
+        }
+
+        .option-btn.red-velvet {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .option-btn.birthday {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #333;
+        }
+
+        .option-btn.cupcake {
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+        }
+
+        .option-btn.white {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .option-btn.pink {
+            background: linear-gradient(135deg, #ffc3e0 0%, #ff8fb9 100%);
+        }
+
+        .option-btn.yellow {
+            background: linear-gradient(135deg, #fff6b7 0%, #ffeb3b 100%);
+            color: #333;
+        }
+
+        .option-btn.purple {
+            background: linear-gradient(135deg, #d4a5ff 0%, #a855f7 100%);
+        }
+
+        .option-btn.brown {
+            background: linear-gradient(135deg, #b8936f 0%, #8b6f47 100%);
+        }
+
+        .option-btn.strawberry {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+
+        .option-btn.mango {
+            background: linear-gradient(135deg, #ffd93d 0%, #ffb700 100%);
+            color: #333;
+        }
+
+        .option-btn.peach {
+            background: linear-gradient(135deg, #ffad9f 0%, #ff8577 100%);
+        }
+
+        .option-btn.yes {
+            background: linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%);
+        }
+
+        .option-btn.no {
+            background: linear-gradient(135deg, #757575 0%, #515151 100%);
+        }
+
+        .result {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-text {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .cake-image {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            margin: 20px auto;
+            border-radius: 20px;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            color: #999;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cake-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .start-over-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c94b7e 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        .start-over-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #ff6b9d;
+            transform: scale(1.3);
+        }
+
+        .progress-dot.completed {
+            background: #56ab2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎂 Make a Cake! 🎂</h1>
+        <p class="subtitle">Design your dream cake step by step</p>
+
+        <div class="progress">
+            <div class="progress-dot" data-step="1"></div>
+            <div class="progress-dot" data-step="2"></div>
+            <div class="progress-dot" data-step="3"></div>
+            <div class="progress-dot" data-step="4"></div>
+            <div class="progress-dot" data-step="5"></div>
+        </div>
+
+        <!-- Step 1: Base Flavor -->
+        <div class="step active" id="step1">
+            <h2 class="step-title">Step 1: Choose Your Base Flavor</h2>
+            <div class="options">
+                <button class="option-btn matcha" onclick="selectFlavor('Matcha')">🍵 Matcha</button>
+                <button class="option-btn vanilla" onclick="selectFlavor('Vanilla')">🌼 Vanilla</button>
+                <button class="option-btn chocolate" onclick="selectFlavor('Chocolate')">🍫 Chocolate</button>
+                <button class="option-btn red-velvet" onclick="selectFlavor('Red Velvet')">❤️ Red Velvet</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Cake Type -->
+        <div class="step" id="step2">
+            <h2 class="step-title">Step 2: Choose Your Cake Type</h2>
+            <div class="options">
+                <button class="option-btn birthday" onclick="selectType('Birthday Cake')">🎂 Birthday Cake</button>
+                <button class="option-btn cupcake" onclick="selectType('Cupcake')">🧁 Cupcake</button>
+            </div>
+        </div>
+
+        <!-- Step 2b: Layers (only for Birthday Cake) -->
+        <div class="step" id="step2b">
+            <h2 class="step-title">How Many Layers?</h2>
+            <div class="options">
+                <button class="option-btn" onclick="selectLayers(1)">1 Layer</button>
+                <button class="option-btn" onclick="selectLayers(2)">2 Layers</button>
+                <button class="option-btn" onclick="selectLayers(3)">3 Layers</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Frosting Color -->
+        <div class="step" id="step3">
+            <h2 class="step-title">Step 3: Choose Frosting Color</h2>
+            <div class="options">
+                <button class="option-btn white" onclick="selectFrosting('White')">⚪ White</button>
+                <button class="option-btn pink" onclick="selectFrosting('Pink')">🌸 Pink</button>
+                <button class="option-btn yellow" onclick="selectFrosting('Yellow')">⭐ Yellow</button>
+                <button class="option-btn purple" onclick="selectFrosting('Purple')">💜 Purple</button>
+                <button class="option-btn brown" onclick="selectFrosting('Brown')">🤎 Brown</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Fruit Topping -->
+        <div class="step" id="step4">
+            <h2 class="step-title">Step 4: Choose a Fruit Topping</h2>
+            <div class="options">
+                <button class="option-btn strawberry" onclick="selectFruit('Strawberry')">🍓 Strawberry</button>
+                <button class="option-btn mango" onclick="selectFruit('Mango')">🥭 Mango</button>
+                <button class="option-btn peach" onclick="selectFruit('Peach')">🍑 Peach</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Sprinkles -->
+        <div class="step" id="step5">
+            <h2 class="step-title">Step 5: Add Sprinkles?</h2>
+            <div class="options">
+                <button class="option-btn yes" onclick="selectSprinkles('Yes')">✨ Yes</button>
+                <button class="option-btn no" onclick="selectSprinkles('No')">❌ No</button>
+            </div>
+        </div>
+
+        <!-- Result -->
+        <div class="result" id="result">
+            <h2 class="step-title">🎉 Your Cake is Ready! 🎉</h2>
+            <p class="result-text" id="resultText"></p>
+            <div class="cake-image">
+                <canvas id="cakeCanvas" class="cake-canvas"></canvas>
+            </div>
+            <button class="start-over-btn" onclick="startOver()">🔄 Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        // Cake builder state
+        const cake = {
+            flavor: '',
+            type: '',
+            layers: 0,
+            frosting: '',
+            fruit: '',
+            sprinkles: ''
+        };
+
+        let currentStep = 1;
+
+        function updateProgress() {
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                const stepNum = index + 1;
+                if (stepNum < currentStep) {
+                    dot.classList.add('completed');
+                    dot.classList.remove('active');
+                } else if (stepNum === currentStep) {
+                    dot.classList.add('active');
+                    dot.classList.remove('completed');
+                } else {
+                    dot.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        function selectFlavor(flavor) {
+            cake.flavor = flavor;
+            nextStep();
+        }
+
+        function selectType(type) {
+            cake.type = type;
+            if (type === 'Birthday Cake') {
+                showStep('step2b');
+            } else {
+                cake.layers = 0; // Cupcakes don't have layers
+                currentStep = 3;
+                updateProgress();
+                nextStep();
+            }
+        }
+
+        function selectLayers(layers) {
+            cake.layers = layers;
+            currentStep = 3;
+            updateProgress();
+            nextStep();
+        }
+
+        function selectFrosting(frosting) {
+            cake.frosting = frosting;
+            nextStep();
+        }
+
+        function selectFruit(fruit) {
+            cake.fruit = fruit;
+            nextStep();
+        }
+
+        function selectSprinkles(sprinkles) {
+            cake.sprinkles = sprinkles;
+            showResult();
+        }
+
+        function nextStep() {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            if (currentStep === 1) {
+                showStep('step2');
+                currentStep = 2;
+            } else if (currentStep === 2) {
+                // Handled in selectType
+            } else if (currentStep === 3) {
+                showStep('step3');
+                currentStep = 4;
+            } else if (currentStep === 4) {
+                showStep('step4');
+                currentStep = 5;
+            } else if (currentStep === 5) {
+                showStep('step5');
+            }
+
+            updateProgress();
+        }
+
+        function showStep(stepId) {
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        function showResult() {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            // Generate result text
+            let resultText = `You made a `;
+
+            if (cake.type === 'Birthday Cake') {
+                resultText += `${cake.layers}-layer `;
+            }
+
+            resultText += `${cake.flavor.toLowerCase()} ${cake.type.toLowerCase()} with ${cake.frosting.toLowerCase()} frosting, topped with ${cake.fruit.toLowerCase()}`;
+
+            if (cake.sprinkles === 'Yes') {
+                resultText += `, and sprinkles!`;
+            } else {
+                resultText += `!`;
+            }
+
+            document.getElementById('resultText').textContent = resultText;
+            document.getElementById('result').classList.add('active');
+
+            // Draw the cake
+            drawCake();
+        }
+
+        function drawCake() {
+            const canvas = document.getElementById('cakeCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.width = 400;
+            canvas.height = 400;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Background
+            ctx.fillStyle = '#f8f9fa';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Color mappings
+            const flavorColors = {
+                'Matcha': '#8db255',
+                'Vanilla': '#f5e6c8',
+                'Chocolate': '#5c3d2e',
+                'Red Velvet': '#8b2525'
+            };
+
+            const frostingColors = {
+                'White': '#ffffff',
+                'Pink': '#ffb3d9',
+                'Yellow': '#ffe66d',
+                'Purple': '#c99fff',
+                'Brown': '#8b6f47'
+            };
+
+            const fruitColors = {
+                'Strawberry': '#ff6b6b',
+                'Mango': '#ffd93d',
+                'Peach': '#ffad9f'
+            };
+
+            if (cake.type === 'Birthday Cake') {
+                drawBirthdayCake(ctx, cake.layers, flavorColors[cake.flavor], frostingColors[cake.frosting], fruitColors[cake.fruit]);
+            } else {
+                drawCupcake(ctx, flavorColors[cake.flavor], frostingColors[cake.frosting], fruitColors[cake.fruit]);
+            }
+
+            // Add sprinkles if selected
+            if (cake.sprinkles === 'Yes') {
+                drawSprinkles(ctx);
+            }
+        }
+
+        function drawBirthdayCake(ctx, layers, flavorColor, frostingColor, fruitColor) {
+            const centerX = canvas.width / 2;
+            const layerHeight = 60;
+            const baseWidth = 200;
+            const startY = 300;
+
+            for (let i = 0; i < layers; i++) {
+                const y = startY - (i * layerHeight);
+
+                // Cake layer
+                ctx.fillStyle = flavorColor;
+                ctx.fillRect(centerX - baseWidth/2, y, baseWidth, layerHeight - 10);
+
+                // Add texture lines
+                ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+                ctx.lineWidth = 2;
+                for (let j = 0; j < 3; j++) {
+                    ctx.beginPath();
+                    ctx.moveTo(centerX - baseWidth/2, y + j * 20);
+                    ctx.lineTo(centerX + baseWidth/2, y + j * 20);
+                    ctx.stroke();
+                }
+
+                // Frosting layer
+                ctx.fillStyle = frostingColor;
+                ctx.beginPath();
+                const waveY = y - 5;
+                ctx.moveTo(centerX - baseWidth/2, waveY);
+
+                for (let x = -baseWidth/2; x <= baseWidth/2; x += 20) {
+                    ctx.bezierCurveTo(
+                        centerX + x, waveY - 10,
+                        centerX + x + 10, waveY - 10,
+                        centerX + x + 20, waveY
+                    );
+                }
+                ctx.lineTo(centerX + baseWidth/2, waveY + 15);
+                ctx.lineTo(centerX - baseWidth/2, waveY + 15);
+                ctx.closePath();
+                ctx.fill();
+
+                // Frosting outline
+                ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            // Add fruit on top
+            const topY = startY - (layers * layerHeight);
+            drawFruit(ctx, centerX, topY - 30, fruitColor);
+
+            // Add candle for birthday cake
+            drawCandle(ctx, centerX, topY - 60);
+        }
+
+        function drawCupcake(ctx, flavorColor, frostingColor, fruitColor) {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Cupcake wrapper
+            ctx.fillStyle = '#ff8fb9';
+            ctx.beginPath();
+            ctx.moveTo(centerX - 60, centerY + 20);
+            ctx.lineTo(centerX - 80, centerY + 80);
+            ctx.lineTo(centerX + 80, centerY + 80);
+            ctx.lineTo(centerX + 60, centerY + 20);
+            ctx.closePath();
+            ctx.fill();
+
+            // Wrapper lines
+            ctx.strokeStyle = '#ff6b9d';
+            ctx.lineWidth = 2;
+            for (let i = -3; i <= 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * 20, centerY + 20);
+                ctx.lineTo(centerX + i * 25, centerY + 80);
+                ctx.stroke();
+            }
+
+            // Cupcake base
+            ctx.fillStyle = flavorColor;
+            ctx.fillRect(centerX - 60, centerY, 120, 30);
+
+            // Frosting swirl
+            ctx.fillStyle = frostingColor;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY - 20, 50, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(centerX - 20, centerY - 40, 35, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(centerX + 20, centerY - 40, 35, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY - 60, 30, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Frosting outline
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Add fruit on top
+            drawFruit(ctx, centerX, centerY - 90, fruitColor);
+        }
+
+        function drawFruit(ctx, x, y, color) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, 15, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Fruit highlight
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.beginPath();
+            ctx.arc(x - 5, y - 5, 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Add fruit details based on type
+            if (cake.fruit === 'Strawberry') {
+                // Strawberry seeds
+                ctx.fillStyle = 'rgba(0,0,0,0.3)';
+                for (let i = 0; i < 6; i++) {
+                    const angle = (Math.PI * 2 / 6) * i;
+                    const seedX = x + Math.cos(angle) * 8;
+                    const seedY = y + Math.sin(angle) * 8;
+                    ctx.beginPath();
+                    ctx.arc(seedX, seedY, 1.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                // Green leaf
+                ctx.fillStyle = '#56ab2f';
+                ctx.beginPath();
+                ctx.moveTo(x, y - 15);
+                ctx.lineTo(x - 8, y - 20);
+                ctx.lineTo(x, y - 17);
+                ctx.lineTo(x + 8, y - 20);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function drawCandle(ctx, x, y) {
+            // Candle body
+            ctx.fillStyle = '#ffd93d';
+            ctx.fillRect(x - 5, y, 10, 30);
+
+            // Candle stripe
+            ctx.fillStyle = '#ff6b9d';
+            ctx.fillRect(x - 5, y + 10, 10, 5);
+
+            // Wick
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y - 10);
+            ctx.stroke();
+
+            // Flame
+            ctx.fillStyle = '#ff6b6b';
+            ctx.beginPath();
+            ctx.ellipse(x, y - 15, 6, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#ffe66d';
+            ctx.beginPath();
+            ctx.ellipse(x, y - 15, 4, 7, 0, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawSprinkles(ctx) {
+            const sprinkleColors = ['#ff6b9d', '#56ccf2', '#ffe66d', '#a855f7', '#56ab2f', '#ff6b6b'];
+
+            for (let i = 0; i < 50; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const angle = Math.random() * Math.PI;
+                const length = 10;
+                const color = sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)];
+
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
+                ctx.stroke();
+            }
+        }
+
+        function startOver() {
+            cake.flavor = '';
+            cake.type = '';
+            cake.layers = 0;
+            cake.frosting = '';
+            cake.fruit = '';
+            cake.sprinkles = '';
+
+            currentStep = 1;
+
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('result').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+
+            updateProgress();
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
