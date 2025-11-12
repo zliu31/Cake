@@ -455,6 +455,35 @@
                 }
             }
 
+            // Red Velvet cupcake combinations
+            if (cake.flavor === 'Red Velvet' && cake.type === 'Cupcake' && cake.fruit === 'Strawberry') {
+                // Red Velvet + Cupcake + Yellow + Strawberry
+                if (cake.frosting === 'Yellow') {
+                    drawImageCake(ctx, 'images/redvelvet-yellow-strawberry-cupcake.png');
+                    return;
+                }
+                // Red Velvet + Cupcake + Purple + Strawberry
+                if (cake.frosting === 'Purple') {
+                    drawImageCake(ctx, 'images/redvelvet-purple-strawberry-cupcake.png');
+                    return;
+                }
+                // Red Velvet + Cupcake + White + Strawberry
+                if (cake.frosting === 'White') {
+                    drawImageCake(ctx, 'images/redvelvet-white-strawberry-cupcake.png');
+                    return;
+                }
+                // Red Velvet + Cupcake + Brown + Strawberry
+                if (cake.frosting === 'Brown') {
+                    drawImageCake(ctx, 'images/redvelvet-brown-strawberry-cupcake.png');
+                    return;
+                }
+                // Red Velvet + Cupcake + Pink + Strawberry
+                if (cake.frosting === 'Pink') {
+                    drawImageCake(ctx, 'images/redvelvet-pink-strawberry-cupcake.png');
+                    return;
+                }
+            }
+
             // Color mappings
             const flavorColors = {
                 'Matcha': '#8db255',
