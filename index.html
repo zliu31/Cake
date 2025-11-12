@@ -260,7 +260,6 @@
             <div class="progress-dot" data-step="2"></div>
             <div class="progress-dot" data-step="3"></div>
             <div class="progress-dot" data-step="4"></div>
-            <div class="progress-dot" data-step="5"></div>
         </div>
 
         <!-- Step 1: Base Flavor -->
@@ -274,28 +273,9 @@
             </div>
         </div>
 
-        <!-- Step 2: Cake Type -->
+        <!-- Step 2: Frosting Color -->
         <div class="step" id="step2">
-            <h2 class="step-title">Step 2: Choose Your Cake Type</h2>
-            <div class="options">
-                <button class="option-btn birthday" onclick="selectType('Birthday Cake')">🎂 Birthday Cake</button>
-                <button class="option-btn cupcake" onclick="selectType('Cupcake')">🧁 Cupcake</button>
-            </div>
-        </div>
-
-        <!-- Step 2b: Layers (only for Birthday Cake) -->
-        <div class="step" id="step2b">
-            <h2 class="step-title">How Many Layers?</h2>
-            <div class="options">
-                <button class="option-btn" onclick="selectLayers(1)">1 Layer</button>
-                <button class="option-btn" onclick="selectLayers(2)">2 Layers</button>
-                <button class="option-btn" onclick="selectLayers(3)">3 Layers</button>
-            </div>
-        </div>
-
-        <!-- Step 3: Frosting Color -->
-        <div class="step" id="step3">
-            <h2 class="step-title">Step 3: Choose Frosting Color</h2>
+            <h2 class="step-title">Step 2: Choose Frosting Color</h2>
             <div class="options">
                 <button class="option-btn white" onclick="selectFrosting('White')">⚪ White</button>
                 <button class="option-btn pink" onclick="selectFrosting('Pink')">🌸 Pink</button>
@@ -305,9 +285,9 @@
             </div>
         </div>
 
-        <!-- Step 4: Fruit Topping -->
-        <div class="step" id="step4">
-            <h2 class="step-title">Step 4: Choose a Fruit Topping</h2>
+        <!-- Step 3: Fruit Topping -->
+        <div class="step" id="step3">
+            <h2 class="step-title">Step 3: Choose a Fruit Topping</h2>
             <div class="options">
                 <button class="option-btn strawberry" onclick="selectFruit('Strawberry')">🍓 Strawberry</button>
                 <button class="option-btn mango" onclick="selectFruit('Mango')">🥭 Mango</button>
@@ -315,9 +295,9 @@
             </div>
         </div>
 
-        <!-- Step 5: Sprinkles -->
-        <div class="step" id="step5">
-            <h2 class="step-title">Step 5: Add Sprinkles?</h2>
+        <!-- Step 4: Sprinkles -->
+        <div class="step" id="step4">
+            <h2 class="step-title">Step 4: Add Sprinkles?</h2>
             <div class="options">
                 <button class="option-btn yes" onclick="selectSprinkles('Yes')">✨ Yes</button>
                 <button class="option-btn no" onclick="selectSprinkles('No')">❌ No</button>
@@ -339,7 +319,7 @@
         // Cake builder state
         const cake = {
             flavor: '',
-            type: '',
+            type: 'Cupcake', // Always cupcake
             layers: 0,
             frosting: '',
             fruit: '',
@@ -368,25 +348,6 @@
             nextStep();
         }
 
-        function selectType(type) {
-            cake.type = type;
-            if (type === 'Birthday Cake') {
-                showStep('step2b');
-            } else {
-                cake.layers = 0; // Cupcakes don't have layers
-                currentStep = 3;
-                updateProgress();
-                nextStep();
-            }
-        }
-
-        function selectLayers(layers) {
-            cake.layers = layers;
-            currentStep = 3;
-            updateProgress();
-            nextStep();
-        }
-
         function selectFrosting(frosting) {
             cake.frosting = frosting;
             nextStep();
@@ -411,15 +372,11 @@
                 showStep('step2');
                 currentStep = 2;
             } else if (currentStep === 2) {
-                // Handled in selectType
-            } else if (currentStep === 3) {
                 showStep('step3');
-                currentStep = 4;
-            } else if (currentStep === 4) {
+                currentStep = 3;
+            } else if (currentStep === 3) {
                 showStep('step4');
-                currentStep = 5;
-            } else if (currentStep === 5) {
-                showStep('step5');
+                currentStep = 4;
             }
 
             updateProgress();
@@ -435,13 +392,7 @@
             });
 
             // Generate result text
-            let resultText = `You made a `;
-
-            if (cake.type === 'Birthday Cake') {
-                resultText += `${cake.layers}-layer `;
-            }
-
-            resultText += `${cake.flavor.toLowerCase()} ${cake.type.toLowerCase()} with ${cake.frosting.toLowerCase()} frosting, topped with ${cake.fruit.toLowerCase()}`;
+            let resultText = `You made a ${cake.flavor.toLowerCase()} cupcake with ${cake.frosting.toLowerCase()} frosting, topped with ${cake.fruit.toLowerCase()}`;
 
             if (cake.sprinkles === 'Yes') {
                 resultText += `, and sprinkles!`;
@@ -760,7 +711,7 @@
 
         function startOver() {
             cake.flavor = '';
-            cake.type = '';
+            cake.type = 'Cupcake';
             cake.layers = 0;
             cake.frosting = '';
             cake.fruit = '';
