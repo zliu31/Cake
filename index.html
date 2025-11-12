@@ -259,7 +259,6 @@
             <div class="progress-dot" data-step="1"></div>
             <div class="progress-dot" data-step="2"></div>
             <div class="progress-dot" data-step="3"></div>
-            <div class="progress-dot" data-step="4"></div>
         </div>
 
         <!-- Step 1: Base Flavor -->
@@ -295,15 +294,6 @@
             </div>
         </div>
 
-        <!-- Step 4: Sprinkles -->
-        <div class="step" id="step4">
-            <h2 class="step-title">Step 4: Add Sprinkles?</h2>
-            <div class="options">
-                <button class="option-btn yes" onclick="selectSprinkles('Yes')">✨ Yes</button>
-                <button class="option-btn no" onclick="selectSprinkles('No')">❌ No</button>
-            </div>
-        </div>
-
         <!-- Result -->
         <div class="result" id="result">
             <h2 class="step-title">🎉 Your Cake is Ready! 🎉</h2>
@@ -322,8 +312,7 @@
             type: 'Cupcake', // Always cupcake
             layers: 0,
             frosting: '',
-            fruit: '',
-            sprinkles: ''
+            fruit: ''
         };
 
         let currentStep = 1;
@@ -355,11 +344,6 @@
 
         function selectFruit(fruit) {
             cake.fruit = fruit;
-            nextStep();
-        }
-
-        function selectSprinkles(sprinkles) {
-            cake.sprinkles = sprinkles;
             showResult();
         }
 
@@ -374,9 +358,6 @@
             } else if (currentStep === 2) {
                 showStep('step3');
                 currentStep = 3;
-            } else if (currentStep === 3) {
-                showStep('step4');
-                currentStep = 4;
             }
 
             updateProgress();
@@ -392,13 +373,7 @@
             });
 
             // Generate result text
-            let resultText = `You made a ${cake.flavor.toLowerCase()} cupcake with ${cake.frosting.toLowerCase()} frosting, topped with ${cake.fruit.toLowerCase()}`;
-
-            if (cake.sprinkles === 'Yes') {
-                resultText += `, and sprinkles!`;
-            } else {
-                resultText += `!`;
-            }
+            let resultText = `You made a ${cake.flavor.toLowerCase()} cupcake with ${cake.frosting.toLowerCase()} frosting, topped with ${cake.fruit.toLowerCase()}!`;
 
             document.getElementById('resultText').textContent = resultText;
             document.getElementById('result').classList.add('active');
@@ -423,28 +398,28 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Check for special image combinations
-            if (cake.flavor === 'Matcha' && cake.type === 'Cupcake' && cake.fruit === 'Strawberry' && cake.sprinkles === 'No') {
-                // Matcha + Cupcake + White + Strawberry + No Sprinkles
+            if (cake.flavor === 'Matcha' && cake.type === 'Cupcake' && cake.fruit === 'Strawberry') {
+                // Matcha + Cupcake + White + Strawberry
                 if (cake.frosting === 'White') {
                     drawImageCake(ctx, 'images/matcha-white-strawberry-cupcake.png');
                     return;
                 }
-                // Matcha + Cupcake + Pink + Strawberry + No Sprinkles
+                // Matcha + Cupcake + Pink + Strawberry
                 if (cake.frosting === 'Pink') {
                     drawImageCake(ctx, 'images/matcha-pink-strawberry-cupcake.png');
                     return;
                 }
-                // Matcha + Cupcake + Yellow + Strawberry + No Sprinkles
+                // Matcha + Cupcake + Yellow + Strawberry
                 if (cake.frosting === 'Yellow') {
                     drawImageCake(ctx, 'images/matcha-yellow-strawberry-cupcake.png');
                     return;
                 }
-                // Matcha + Cupcake + Purple + Strawberry + No Sprinkles
+                // Matcha + Cupcake + Purple + Strawberry
                 if (cake.frosting === 'Purple') {
                     drawImageCake(ctx, 'images/matcha-purple-strawberry-cupcake.png');
                     return;
                 }
-                // Matcha + Cupcake + Brown + Strawberry + No Sprinkles
+                // Matcha + Cupcake + Brown + Strawberry
                 if (cake.frosting === 'Brown') {
                     drawImageCake(ctx, 'images/matcha-chocolate-strawberry-cupcake.png');
                     return;
@@ -477,11 +452,6 @@
                 drawBirthdayCake(ctx, cake.layers, flavorColors[cake.flavor], frostingColors[cake.frosting], fruitColors[cake.fruit]);
             } else {
                 drawCupcake(ctx, flavorColors[cake.flavor], frostingColors[cake.frosting], fruitColors[cake.fruit]);
-            }
-
-            // Add sprinkles if selected
-            if (cake.sprinkles === 'Yes') {
-                drawSprinkles(ctx);
             }
         }
 
@@ -730,7 +700,6 @@
             cake.layers = 0;
             cake.frosting = '';
             cake.fruit = '';
-            cake.sprinkles = '';
 
             currentStep = 1;
 
