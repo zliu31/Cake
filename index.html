@@ -471,14 +471,18 @@
             ctx.fillStyle = '#f8f9fa';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Check for special combination: Matcha + Cupcake + Brown + Strawberry + No Sprinkles
-            if (cake.flavor === 'Matcha' &&
-                cake.type === 'Cupcake' &&
-                cake.frosting === 'Brown' &&
-                cake.fruit === 'Strawberry' &&
-                cake.sprinkles === 'No') {
-                drawImageCake(ctx);
-                return;
+            // Check for special image combinations
+            if (cake.flavor === 'Matcha' && cake.type === 'Cupcake' && cake.fruit === 'Strawberry' && cake.sprinkles === 'No') {
+                // Matcha + Cupcake + Brown + Strawberry + No Sprinkles
+                if (cake.frosting === 'Brown') {
+                    drawImageCake(ctx, 'images/matcha-chocolate-strawberry-cupcake.png');
+                    return;
+                }
+                // Matcha + Cupcake + Pink + Strawberry + No Sprinkles
+                if (cake.frosting === 'Pink') {
+                    drawImageCake(ctx, 'images/matcha-pink-strawberry-cupcake.png');
+                    return;
+                }
             }
 
             // Color mappings
@@ -515,8 +519,8 @@
             }
         }
 
-        function drawImageCake(ctx) {
-            // Draw the special matcha-chocolate-strawberry cupcake image
+        function drawImageCake(ctx, imagePath) {
+            // Draw the special cupcake image
             const cupcakeImg = new Image();
             const canvas = document.getElementById('cakeCanvas');
 
@@ -547,16 +551,15 @@
             };
 
             cupcakeImg.onerror = () => {
-                console.error('Failed to load cupcake image');
+                console.error('Failed to load cupcake image: ' + imagePath);
                 // Fall back to text if image fails
                 ctx.fillStyle = '#333';
                 ctx.font = '18px Arial';
                 ctx.textAlign = 'center';
-                ctx.fillText('Matcha Cupcake with', canvas.width/2, canvas.height/2 - 20);
-                ctx.fillText('Chocolate Frosting & Strawberry!', canvas.width/2, canvas.height/2 + 10);
+                ctx.fillText('Special Matcha Cupcake!', canvas.width/2, canvas.height/2);
             };
 
-            cupcakeImg.src = 'images/matcha-chocolate-strawberry-cupcake.png';
+            cupcakeImg.src = imagePath;
         }
 
         function drawBirthdayCake(ctx, layers, flavorColor, frostingColor, fruitColor) {
