@@ -424,9 +424,9 @@
 
             // Check for special image combinations
             if (cake.flavor === 'Matcha' && cake.type === 'Cupcake' && cake.fruit === 'Strawberry' && cake.sprinkles === 'No') {
-                // Matcha + Cupcake + Brown + Strawberry + No Sprinkles
-                if (cake.frosting === 'Brown') {
-                    drawImageCake(ctx, 'images/matcha-chocolate-strawberry-cupcake.png');
+                // Matcha + Cupcake + White + Strawberry + No Sprinkles
+                if (cake.frosting === 'White') {
+                    drawImageCake(ctx, 'images/matcha-white-strawberry-cupcake.png');
                     return;
                 }
                 // Matcha + Cupcake + Pink + Strawberry + No Sprinkles
@@ -442,6 +442,11 @@
                 // Matcha + Cupcake + Purple + Strawberry + No Sprinkles
                 if (cake.frosting === 'Purple') {
                     drawImageCake(ctx, 'images/matcha-purple-strawberry-cupcake.png');
+                    return;
+                }
+                // Matcha + Cupcake + Brown + Strawberry + No Sprinkles
+                if (cake.frosting === 'Brown') {
+                    drawImageCake(ctx, 'images/matcha-chocolate-strawberry-cupcake.png');
                     return;
                 }
             }
