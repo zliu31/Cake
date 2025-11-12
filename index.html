@@ -426,6 +426,35 @@
                 }
             }
 
+            // Vanilla cupcake combinations
+            if (cake.flavor === 'Vanilla' && cake.type === 'Cupcake' && cake.fruit === 'Strawberry') {
+                // Vanilla + Cupcake + Yellow + Strawberry
+                if (cake.frosting === 'Yellow') {
+                    drawImageCake(ctx, 'images/vanilla-yellow-strawberry-cupcake.png');
+                    return;
+                }
+                // Vanilla + Cupcake + Purple + Strawberry
+                if (cake.frosting === 'Purple') {
+                    drawImageCake(ctx, 'images/vanilla-purple-strawberry-cupcake.png');
+                    return;
+                }
+                // Vanilla + Cupcake + White + Strawberry
+                if (cake.frosting === 'White') {
+                    drawImageCake(ctx, 'images/vanilla-white-strawberry-cupcake.png');
+                    return;
+                }
+                // Vanilla + Cupcake + Brown + Strawberry
+                if (cake.frosting === 'Brown') {
+                    drawImageCake(ctx, 'images/vanilla-brown-strawberry-cupcake.png');
+                    return;
+                }
+                // Vanilla + Cupcake + Pink + Strawberry
+                if (cake.frosting === 'Pink') {
+                    drawImageCake(ctx, 'images/vanilla-pink-strawberry-cupcake.png');
+                    return;
+                }
+            }
+
             // Color mappings
             const flavorColors = {
                 'Matcha': '#8db255',
