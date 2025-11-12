@@ -471,6 +471,16 @@
             ctx.fillStyle = '#f8f9fa';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Check for special combination: Matcha + Cupcake + Brown + Strawberry + No Sprinkles
+            if (cake.flavor === 'Matcha' &&
+                cake.type === 'Cupcake' &&
+                cake.frosting === 'Brown' &&
+                cake.fruit === 'Strawberry' &&
+                cake.sprinkles === 'No') {
+                drawImageCake(ctx);
+                return;
+            }
+
             // Color mappings
             const flavorColors = {
                 'Matcha': '#8db255',
@@ -503,6 +513,59 @@
             if (cake.sprinkles === 'Yes') {
                 drawSprinkles(ctx);
             }
+        }
+
+        function drawImageCake(ctx) {
+            // Draw using uploaded images for the special combination
+            const cupcakeImg = new Image();
+            const strawberryImg = new Image();
+            const chocolateImg = new Image();
+
+            let imagesLoaded = 0;
+            const totalImages = 3;
+
+            function checkAllLoaded() {
+                imagesLoaded++;
+                if (imagesLoaded === totalImages) {
+                    // All images loaded, now draw them
+                    const canvas = document.getElementById('cakeCanvas');
+
+                    // Draw cupcake base
+                    const cupcakeWidth = 300;
+                    const cupcakeHeight = 300;
+                    const x = (canvas.width - cupcakeWidth) / 2;
+                    const y = (canvas.height - cupcakeHeight) / 2 + 30;
+
+                    ctx.drawImage(cupcakeImg, x, y, cupcakeWidth, cupcakeHeight);
+
+                    // Add chocolate pieces on the sides
+                    const chocSize = 60;
+                    ctx.drawImage(chocolateImg, x - 20, y + 100, chocSize, chocSize);
+                    ctx.drawImage(chocolateImg, x + cupcakeWidth - 40, y + 120, chocSize, chocSize);
+
+                    // Draw strawberry on top
+                    const strawberrySize = 80;
+                    const strawberryX = (canvas.width - strawberrySize) / 2;
+                    const strawberryY = y - 20;
+                    ctx.drawImage(strawberryImg, strawberryX, strawberryY, strawberrySize, strawberrySize);
+                }
+            }
+
+            cupcakeImg.onload = checkAllLoaded;
+            strawberryImg.onload = checkAllLoaded;
+            chocolateImg.onload = checkAllLoaded;
+
+            cupcakeImg.onerror = () => {
+                console.error('Failed to load cupcake image');
+                // Fall back to drawing if image fails
+                ctx.fillStyle = '#333';
+                ctx.font = '16px Arial';
+                ctx.fillText('Special Matcha Cupcake!', canvas.width/2 - 80, canvas.height/2);
+            };
+
+            cupcakeImg.src = 'images/cupcake-base.jpeg';
+            strawberryImg.src = 'images/strawberry.png';
+            chocolateImg.src = 'images/chocolate.png';
         }
 
         function drawBirthdayCake(ctx, layers, flavorColor, frostingColor, fruitColor) {
